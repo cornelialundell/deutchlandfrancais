@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { LandingPage } from './components/LandingPage/landingPage';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { LandingPage } from './components/landingPage/landingPage';
+import { ContactPage } from './components/contactPage/contactPage';
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
       <LandingPage /> 
     </Route>
     <Route exact path="/contact">
-    {/* <Nav/>
-      <Contact /> */}
+    {/* //<Nav/> */}
+      <ContactPage/> 
     </Route>
     <Route exact path="/booking">
     {/* <Nav />
