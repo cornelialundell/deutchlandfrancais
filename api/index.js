@@ -1,13 +1,45 @@
-const http = require('http');
+const http = require("http");
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+const cors = require("cors");
+const contactRoute = require("./routes/contactRoute")
 
+const app = express();
 const port = 9000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}))
+app.use(contactRoute)
 
-server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-});
+
+
+mongoose.set("useFindAndModify", false);
+
+
+mongoose.connect(
+  process.env.DB_CONNECT,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    app.listen(port, () => {
+      console.log("App is running");
+    });
+  }
+);
+
+
+
+console.log(process.env.DB_CONNECT);
