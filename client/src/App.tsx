@@ -2,9 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import { LandingPage } from './components/landingPage/landingPage';
+import { LandingPage } from './components/LandingPage/landingPage'
 import { ContactPage } from './components/contactPage/contactPage';
 import { Navigation} from './components/navigation/navigation';
+import { BookingPage } from './components/bookingPage/bookingPage';
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
       <ContactPage/> 
     </Route>
     <Route exact path="/booking">
-    {/* <Nav />
-      <BookingForm /> */}
+    <Navigation />
+      <BookingPage />
     </Route>
 </Switch>
   </Router>
