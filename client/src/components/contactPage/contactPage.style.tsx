@@ -10,5 +10,4 @@ interface IStyledHeading {
 export const StyledHeading = styled.h2`
 color: ${(props: IStyledHeading) => props.txt ? props.txt : 'red'};
 font-size: ${(props:IStyledHeading) => props.size ? props.size: '5em'};
-
 `
