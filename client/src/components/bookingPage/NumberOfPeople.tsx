@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import Select from "react-select";
 import { Option } from "react-select/src/filters";
 export const NumberOfPeople = (props: any) => {
-  const [value, setGuests] = useState<number | null>();
+  const [numberOfPeople, setGuests] = useState<number | null>();
 
   const options = [
     { value: 1, label: 1 },

@@ -11,18 +11,18 @@ import { Booking } from "./booking";
 export const BookingPage = () => {
 
     const [booking, setBooking] = useState<Booking>(new Booking)
-    const [value, setGuests] = useState<number | null >(); 
+    const [numberOfPeople, setGuests] = useState<number | null >(); 
+    const [day, onChange] = useState(new Date());
     return (
 
-        <div>Här kan du boka bord hehe
-        <Day /> 
+        <div>
+        <Day booking={booking}/> 
         <NumberOfPeople booking={booking} />
+        <button onClick={() => console.log(booking) }>Check available times</button>
         <Time/>
         <ContactInformation />
 
-        <button onClick={() => alert(booking.guests)}>KLICKA HÄR</button>
 
-        ni ska vara såhär många {booking.guests} haha
         </div>
-    )
+    ) 
 }
