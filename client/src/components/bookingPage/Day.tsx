@@ -8,23 +8,15 @@ export const Day = () => {
         const [value, onChange] = useState(new Date());
         const [flashMessage, setFlash] = useState<String | null>(null);
 
-        const selectDate = () => {
-            const todaysDate = new Date();
-            if (value < todaysDate) {
-                setFlash('no')
-              return;
-            }
-            setFlash(null);
-          };
+
     
     return(
         <div>
-              {flashMessage ? <div>Det datumet har redan varit ditt hor</div> : null}
         <Calendar
         onChange={onChange}
         value={value}
+        minDate={new Date()}
             />
-        <button onClick={selectDate}>Gå vidare</button>
         </div>
     )
 } 
