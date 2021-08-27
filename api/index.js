@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
-const contactRoute = require("./routes/contactRoute")
+const bookingRoute= require("./routes/bookingRoute")
 
 const app = express();
 const port = 9000;
@@ -19,10 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }))
-app.use(contactRoute)
 
 
-
+app.use(bookingRoute)
 mongoose.set("useFindAndModify", false);
 
 

@@ -1,5 +1,5 @@
 export class Booking {
-    day?: Date;
+    day?: String;
     guests?: number = 0;
     time?: number;
     name?: string;

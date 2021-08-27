@@ -3,16 +3,18 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 export const Day = (props:any) => {
-  const [day, onChange] = useState(new Date());
-
-  const sendProps = () =>{
-    props.booking.day = day;
-  }
+  const [day, setDay] = useState(new Date());
+  
 
   return (
     <div>
-      <Calendar onChange={onChange} value={day} minDate={new Date()} />
-      <button onClick={sendProps}>Välj datum</button>
+      <Calendar onChange={(event: any) => {if (event) {
+        const newDay = event
+            setDay(newDay);
+
+            props.booking.day = newDay.toLocaleDateString();
+            
+          }}} value={day} minDate={new Date()} />
     </div>
   );
 };
