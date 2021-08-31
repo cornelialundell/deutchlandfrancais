@@ -68,7 +68,7 @@ const checkAvailability = async (req, res) => {
 };
 
 const addBooking = async (req, res) => {
- console.log('haj')
+ console.log(req.body.bookedName)
 };
 
 module.exports = { addBooking, checkAvailability };

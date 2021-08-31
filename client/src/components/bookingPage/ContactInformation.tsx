@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-export const ContactInformation = () => {
+export const ContactInformation = (props:any) => {
   const [guestName, setGuestName] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
@@ -23,7 +23,7 @@ export const ContactInformation = () => {
         placeholder="telefonnummer"
         onChange={(e) => setGuestPhone(e.target.value)}
         value={guestPhone}
-      />
+      /> 
     </div>
   );
 };
