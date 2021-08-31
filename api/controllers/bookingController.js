@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Booking = require("../models/Booking");
 const POSSIBLE_TIMES = [18, 21];
 
-const addBooking = async (req, res) => {
+const checkAvailability = async (req, res) => {
   const isAvailableArray = [];
   const chosenDate = req.body.bookedDay;
   const newPeople = req.body.bookedPeople;
@@ -26,7 +26,7 @@ const addBooking = async (req, res) => {
       time: currentTime,
     });
 
-    let totalTables = 0;
+    let totalTables = 0; 
     bookings.map(function (booking) {
       let bookedTables = Math.ceil(booking.numberOfPeople / 6);
       totalTables = totalTables + bookedTables;
@@ -67,12 +67,8 @@ const addBooking = async (req, res) => {
   // await newBooking.save();
 };
 
-const checkAvailability = async (req, res) => {
-  const chosenDate = req.body.bookedDay;
-  console.log(chosenDate);
-
-  const bookings = await Booking.find({ date: chosenDate });
-  console.log(bookings);
+const addBooking = async (req, res) => {
+ console.log('haj')
 };
 
 module.exports = { addBooking, checkAvailability };

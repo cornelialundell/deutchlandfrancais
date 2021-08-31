@@ -2,8 +2,8 @@ const { addBooking, checkAvailability } = require("../controllers/bookingControl
 const express = require("express");
 const router = express.Router();
 
-router.get('/booking', checkAvailability)
+router.post('/booking', checkAvailability)
 
-router.post("/booking", addBooking);
+router.post("/addBooking", addBooking);
 
 module.exports = router;
