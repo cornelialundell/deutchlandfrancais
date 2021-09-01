@@ -59,16 +59,31 @@ const checkAvailability = async (req, res) => {
   // }
 
   res.send(isAvailableArray);
-  // const newBooking = new Booking({
-  //   date: req.body.bookedDay,
-  //   numberOfPeople: req.body.bookedPeople,
-  // });
-
-  // await newBooking.save();
+  
 };
 
 const addBooking = async (req, res) => {
- console.log(req.body.bookedName)
+
+  console.log(req.body)
+  const {date, numberOfPeople, time, name, email, phones} = req.body.booking;
+  console.log(req.body.booking);
+  
+
+  // if (!chosenName) {
+  //   return res.status(404).json({ message: "fyll i alla fälten" });
+  // }
+
+ const newBooking = await new Booking({
+   date: date,
+   numberOfPeople: numberOfPeople,
+   time: time,
+   name: name,
+   email: email,
+   phones: phones
+    
+  }).save();
+
+  // await newBooking.save();
 };
 
 module.exports = { addBooking, checkAvailability };

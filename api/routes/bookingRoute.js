@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.post('/booking', checkAvailability)
 
-router.post("/addBooking", addBooking);
+router.post("/confirmBooking", addBooking);
 
 module.exports = router;

@@ -14,6 +14,9 @@ export const BookingPage:React.FC  = () => {
   const [isAvailable, setAvailable] = useState<[] | null>()
   const [time, setTime] = useState<number>();
   const [showComponent, setShowComponent] = useState(true);
+  const [guestName, setGuestName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
   
 
 
@@ -46,24 +49,23 @@ export const BookingPage:React.FC  = () => {
   };
 
  const confirmBooking = () => {
-    const bookedName = booking.name
-    const bookedEmail = booking.email
-    const bookedPhone = booking.phones
+    // const bookedName = booking.name
+    // const bookedEmail = booking.email
+    // const bookedPhone = booking.phones
 
     sendData();
     async function sendData() {
       try {
-      console.log(booking.name)
+      console.log(booking)
     
       const sendData = {
-      bookedName,
-      bookedEmail,
-      bookedPhone
+        booking
+      //bookedName,
+      //bookedEmail,
+      //bookedPhone,
     };
 
-    axios.post("http://localhost:9000/booking", sendData).then((resp) => {
-            setAvailable(resp.data)
-          })
+    axios.post("http://localhost:9000/confirmBooking", sendData)
           .catch((err) => {
             console.log(err)
           })
@@ -91,7 +93,7 @@ export const BookingPage:React.FC  = () => {
         <p>Tid: Kl {booking.time}</p>
         <p>Vänligen fyll i: </p>
 
-        <ContactInformation />
+        <ContactInformation booking={booking}/>
         <button onClick={confirmBooking}>Bekräfta</button>
     </div>)}</div>
   );
