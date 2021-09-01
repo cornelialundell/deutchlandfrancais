@@ -26,7 +26,7 @@ const checkAvailability = async (req, res) => {
       time: currentTime,
     });
 
-    let totalTables = 0; 
+    let totalTables = 0;
     bookings.map(function (booking) {
       let bookedTables = Math.ceil(booking.numberOfPeople / 6);
       totalTables = totalTables + bookedTables;
@@ -42,48 +42,25 @@ const checkAvailability = async (req, res) => {
     console.log(isAvailable);
     isAvailableArray.push(isAvailable);
   }
-  // const bookings = await Booking.find({ date: chosenDate, });
-
-  // let totalTables = 0;
-  // bookings.map(function (booking) {
-  //   let bookedTables = Math.ceil(booking.numberOfPeople / 6);
-  //   totalTables = totalTables + bookedTables;
-  // });
-
-  // // TABLE IS AVAILABLE OR NOT
-  // let isAvailable = false;
-  // if (totalTables + table <= 15) {
-  //    isAvailable = true;
-  // } else {
-  //    isAvailable = false;
-  // }
 
   res.send(isAvailableArray);
-  
 };
 
 const addBooking = async (req, res) => {
-
-  console.log(req.body)
-  const {date, numberOfPeople, time, name, email, phones} = req.body.booking;
-  console.log(req.body.booking);
-  
+  const { day, guests, time, name, email, phones } = req.body.booking;
 
   // if (!chosenName) {
   //   return res.status(404).json({ message: "fyll i alla fälten" });
   // }
 
- const newBooking = await new Booking({
-   date: date,
-   numberOfPeople: numberOfPeople,
-   time: time,
-   name: name,
-   email: email,
-   phones: phones
-    
+  const newBooking = await new Booking({
+    date: day,
+    numberOfPeople: guests,
+    time: time,
+    name: name,
+    email: email,
+    phones: phones,
   }).save();
-
-  // await newBooking.save();
 };
 
 module.exports = { addBooking, checkAvailability };
