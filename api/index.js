@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const bookingRoute= require("./routes/bookingRoute")
+const editRoute= require("./routes/editRoute")
 
 const app = express();
 const port = 9000;
@@ -22,6 +23,7 @@ app.use(express.urlencoded({
 
 
 app.use(bookingRoute)
+app.use(editRoute)
 mongoose.set("useFindAndModify", false);
 
 

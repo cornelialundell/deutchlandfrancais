@@ -12,7 +12,7 @@ export const Day = (props:any) => {
         const newDay = event
             setDay(newDay);
 
-            props.booking.day = newDay.toLocaleDateString();
+            props.booking.date = newDay.toLocaleDateString();
             
           }}} value={day} minDate={new Date()} />
     </div>
