@@ -6,6 +6,7 @@ import { LandingPage } from './components/landingPage/landingPage'
 import { ContactPage } from './components/contactPage/contactPage';
 import { Navigation} from './components/navigation/navigation';
 import { BookingPage } from './components/bookingPage/bookingPage';
+import { AdminPage } from './components/adminPage/adminPage';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
     <Route exact path="/booking">
     <Navigation />
       <BookingPage />
+    </Route>
+    <Route exact path="/admin">
+    {/* <Navigation /> */}
+      <AdminPage />
     </Route>
 </Switch>
   </Router>

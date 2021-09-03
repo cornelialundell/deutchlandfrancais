@@ -1,5 +1,12 @@
-export const RandomFunction = () => {
+import { LogIn } from "./login"
+import { SeeBookings } from "./seeBookings"
+
+
+export const AdminPage = () => {
     return (
-        <div>hejhej</div>
+        <div>
+        <LogIn />
+        <SeeBookings />
+        </div>
     )
 }
