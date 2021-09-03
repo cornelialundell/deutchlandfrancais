@@ -1,11 +1,11 @@
-import { Day } from "./Day";
+import { Day } from "./Day"
 import { ContactInformation } from "./ContactInformation";
 import { NumberOfPeople } from "./NumberOfPeople";
-import { Time } from "./Time";
 import { useState } from "react";
 import { Booking } from "./booking";
-import axios from "axios";
 import React from 'react'
+import axios from "axios";
+import { Time } from "./Time";
 
 export const BookingPage:React.FC  = () => {
   const [booking, setBooking] = useState<Booking>(new Booking());
@@ -21,13 +21,13 @@ export const BookingPage:React.FC  = () => {
 
 
   const checkAvailability = () => {
-      const bookedDay = booking.day
+      const bookedDay = booking.date
       const bookedPeople = booking.guests
 
       sendData();
     async function sendData() {
       try {
-          console.log(booking.day)
+          console.log(booking.date)
         const sendData = {
           bookedDay,
           bookedPeople,
@@ -88,7 +88,7 @@ export const BookingPage:React.FC  = () => {
     </div>)
     : (
     <div>
-        <p>Datum: {booking.day}</p>
+        <p>Datum: {booking.date}</p>
         <p>Antal gäster: {booking.guests}</p>
         <p>Tid: Kl {booking.time}</p>
         <p>Vänligen fyll i: </p>

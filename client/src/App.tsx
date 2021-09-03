@@ -7,6 +7,7 @@ import { ContactPage } from './components/contactPage/contactPage';
 import { Navigation} from './components/navigation/navigation';
 import { BookingPage } from './components/bookingPage/bookingPage';
 import { AdminPage } from './components/adminPage/adminPage';
+import { EditBooking } from './components/adminPage/editBooking';
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
     <Route exact path="/admin">
     {/* <Navigation /> */}
       <AdminPage />
+    </Route>
+    <Route exact path="/edit/:id">
+    {/* <Navigation /> */}
+      {/* <AdminPage /> */}
+      <EditBooking />
     </Route>
 </Switch>
   </Router>
