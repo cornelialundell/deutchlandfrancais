@@ -18,7 +18,11 @@ const bookingSchema = new mongoose.Schema({
   },
   phones: {
     type: String
+  },
+  confirmation: {
+    type: Number
   }
+
 });
 
 const Booking = mongoose.model("booking", bookingSchema);
