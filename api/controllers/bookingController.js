@@ -4,16 +4,25 @@ const nodemailer = require("nodemailer");
 const nodemailerSmtpTransport = require("nodemailer-smtp-transport");
 const POSSIBLE_TIMES = [18, 21];
 
-const transport = nodemailer.createTransport( 
-  nodemailerSmtpTransport({ service: "gmail",
-  auth:{
-    user: "fusionrestaurant.info@gmail.com",
-    pass: "EveOchCorre123"
-  }
-  
-})
+const transport = nodemailer.createTransport(
+  nodemailerSmtpTransport({
+    service: "gmail",
+    auth: {
+      user: "fusionrestaurant.info@gmail.com",
+      pass: "EveOchCorre123",
+    },
+  })
+);
 
-)
+
+const getBookings = async (req, res) => {
+  const todaysDate = req.query.date
+  const bookings = await Booking.find({
+    date: todaysDate
+  });
+
+  res.send(bookings)
+}
 
 const checkAvailability = async (req, res) => {
   const isAvailableArray = [];
@@ -41,7 +50,7 @@ const checkAvailability = async (req, res) => {
 
     let totalTables = 0;
     bookings.map(function (booking) {
-      let bookedTables = Math.ceil(booking.numberOfPeople / 6);
+      let bookedTables = Math.ceil(booking.guests / 6);
       totalTables = totalTables + bookedTables;
     });
 
@@ -65,24 +74,22 @@ const addBooking = async (req, res) => {
 
   const newBooking = await new Booking({
     date: day,
-    numberOfPeople: guests,
+    guests: guests,
     time: time,
     name: name,
     email: email,
     phones: phones,
-    confirmation: confirmation
+    confirmation: confirmation,
   }).save();
 
+  await transport.sendMail({
+    from: "feddynamiskweb@gmail.com",
+    to: email,
+    subject: "Bokningsbekräftelse",
 
-
- await transport.sendMail({
-  from: "feddynamiskweb@gmail.com",
-  to: email, 
-  subject: 'Bokningsbekräftelse',
- 
-  html: `<h1> Tack för din bokning! </h1>
+    html: `<h1> Tack för din bokning! </h1>
   <h3> Du är välkommen kl ${time}:00 ${day}. <br> Ditt ordernummer är ${confirmation}`,
-}) 
+  });
 };
 
-module.exports = { addBooking, checkAvailability };
+module.exports = { addBooking, checkAvailability, getBookings };
