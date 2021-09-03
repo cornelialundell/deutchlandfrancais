@@ -1,6 +1,19 @@
 const mongoose = require("mongoose");
 const Booking = require("../models/Booking");
+const nodemailer = require("nodemailer");
+const nodemailerSmtpTransport = require("nodemailer-smtp-transport");
 const POSSIBLE_TIMES = [18, 21];
+
+const transport = nodemailer.createTransport( 
+  nodemailerSmtpTransport({ service: "gmail",
+  auth:{
+    user: "fusionrestaurant.info@gmail.com",
+    pass: "EveOchCorre123"
+  }
+  
+})
+
+)
 
 const checkAvailability = async (req, res) => {
   const isAvailableArray = [];
@@ -48,10 +61,7 @@ const checkAvailability = async (req, res) => {
 
 const addBooking = async (req, res) => {
   const { day, guests, time, name, email, phones } = req.body.booking;
-
-  // if (!chosenName) {
-  //   return res.status(404).json({ message: "fyll i alla fälten" });
-  // }
+  const confirmation = Math.floor(Math.random() * 1000000);
 
   const newBooking = await new Booking({
     date: day,
@@ -60,7 +70,19 @@ const addBooking = async (req, res) => {
     name: name,
     email: email,
     phones: phones,
+    confirmation: confirmation
   }).save();
+
+
+
+ await transport.sendMail({
+  from: "feddynamiskweb@gmail.com",
+  to: email, 
+  subject: 'Bokningsbekräftelse',
+ 
+  html: `<h1> Tack för din bokning! </h1>
+  <h3> Du är välkommen kl ${time}:00 ${day}. <br> Ditt ordernummer är ${confirmation}`,
+}) 
 };
 
 module.exports = { addBooking, checkAvailability };
