@@ -7,11 +7,15 @@ import React from "react";
 import axios from "axios";
 import { Time } from "./Time";
 
+export interface IBooking {
+  booking: Booking,
+}
+
 export const BookingPage: React.FC = () => {
   const [booking, setBooking] = useState<Booking>(new Booking());
   const [numberOfPeople, setGuests] = useState<number | null>();
   const [day, onChange] = useState(new Date());
-  const [isAvailable, setAvailable] = useState<[] | null>();
+  let [isAvailable, setAvailable] = useState<[] | null>();
   const [time, setTime] = useState<number>();
   const [showComponent, setShowComponent] = useState(true);
   const [guestName, setGuestName] = useState("");
@@ -35,6 +39,7 @@ export const BookingPage: React.FC = () => {
           .post("http://localhost:9000/booking", sendData)
           .then((resp) => {
             setAvailable(resp.data);
+            booking.isAvailable = resp.data
           })
           .catch((err) => {
             console.log(err);
@@ -46,20 +51,14 @@ export const BookingPage: React.FC = () => {
   };
 
   const confirmBooking = () => {
-    // const bookedName = booking.name
-    // const bookedEmail = booking.email
-    // const bookedPhone = booking.phones
-
+ 
     sendData();
     async function sendData() {
       try {
         console.log(booking);
 
         const sendData = {
-          booking,
-          //bookedName,
-          //bookedEmail,
-          //bookedPhone,
+          booking
         };
 
         axios
@@ -80,7 +79,7 @@ export const BookingPage: React.FC = () => {
           <Day booking={booking} />
           <NumberOfPeople booking={booking} />
           <button onClick={checkAvailability}>Check available times</button>
-          <Time booking={booking} isAvailableArray={isAvailable} />
+          <Time booking={booking}/>
           <button onClick={() => setShowComponent(false)}>gå vidare </button>
         </div>
       ) : (

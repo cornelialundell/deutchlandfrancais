@@ -69,11 +69,11 @@ const checkAvailability = async (req, res) => {
 };
 
 const addBooking = async (req, res) => {
-  const { day, guests, time, name, email, phones } = req.body.booking;
+  const { date, guests, time, name, email, phones } = req.body.booking;
   const confirmation = Math.floor(Math.random() * 1000000);
 
   const newBooking = await new Booking({
-    date: day,
+    date: date,
     guests: guests,
     time: time,
     name: name,
