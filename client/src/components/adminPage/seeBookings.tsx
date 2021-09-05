@@ -1,22 +1,32 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  EventHandler,
+  useState,
+} from "react";
+import Calendar, { CalendarProps, OnChangeDateCallback } from "react-calendar";
 import { Link } from "react-router-dom";
 import { Booking } from "../bookingPage/booking";
 import { Button } from "../globalStyles/Button";
 import { Card } from "./editBooking.style";
+import moment from 'moment'
 
-let date: string = "2021-09-03";
-
-export const SeeBookings = (props:any) => {
+export const SeeBookings = (props: any) => {
+  const [day, setDay] = useState<Date | Date[]>();;
   const [bookings, setBookings] = useState<Booking[]>();
   const isEdit: Boolean = true;
 
-  function getBookings() {
+  function getBookings(date: Date | Date[]) {
+    const newDate = date.toString()
+    const currentDate = moment(newDate).format("YYYY-MM-DD")
+    console.log(currentDate)
+
     axios
       .get("http://localhost:9000/getBookings", {
         params: {
-          date: date,
+          date: currentDate,
         },
       })
       .then((resp) => {
@@ -29,32 +39,48 @@ export const SeeBookings = (props:any) => {
 
   return (
     <div>
-      <Button onClick={getBookings}>Se dagens bokningar</Button>
+
       {bookings ? (
         <ul>
           {bookings.map((booking, index) => {
             return (
               <Card>
-              <li className={isEdit ? "editMode" : ""}>
-                <p>Namn: {booking.name}</p>
-                <p>Antal gäster: {booking.guests}</p>
-                <p>Tid: {booking.time}:00</p>
-                <Link to={`/edit/${booking.confirmation}`}>
-                  <Button bgColor="#ED7D0C" key={index}>Edit</Button>
-                </Link>
-              </li>
+                <li className={isEdit ? "editMode" : ""}>
+                  <p>Namn: {booking.name}</p>
+                  <p>Antal gäster: {booking.guests}</p>
+                  <p>Tid: {booking.time}:00</p>
+                  <Link to={`/edit/${booking.confirmation}`}>
+                    <Button bgColor="#ED7D0C" key={index}>
+                      Edit
+                    </Button>
+                  </Link>
+                </li>
               </Card>
             );
           })}
         </ul>
       ) : (
-        <p>Välj ett datum</p>
+        <div>
+          <p>Välj ett datum för att kolla bokningar.</p>
+          <Calendar
+            onChange={(date: Date | Date[]):void  => {
+             getBookings(date)
+            }}
+
+            value={day}
+            minDate={new Date()}
+          />
+        </div>
       )}
-      <Button bgColor="#ED7D0C" 
-      onClick={() => {
-        Cookies.remove('cookie')
-        props.setCookie(false)
-      }}>Logga ut</Button>
+      <Button
+        bgColor="#ED7D0C"
+        onClick={() => {
+          Cookies.remove("cookie");
+          props.setCookie(false);
+        }}
+      >
+        Logga ut
+      </Button>
     </div>
   );
 };

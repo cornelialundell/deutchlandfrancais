@@ -55,7 +55,7 @@ export const EditBooking = () => {
     } catch (err) {
       console.log(err);
     }
-    history.push('/admin')
+    history.goBack()
   }
   return (
     <>
