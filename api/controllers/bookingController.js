@@ -16,9 +16,9 @@ const transport = nodemailer.createTransport(
 
 
 const getBookings = async (req, res) => {
-  const todaysDate = req.query.date
+  const chosenDate = req.query.date
   const bookings = await Booking.find({
-    date: todaysDate
+    date: chosenDate
   });
 
   res.send(bookings)
