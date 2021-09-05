@@ -6,4 +6,5 @@ export class Booking {
     email?: string;
     phones?: string;
     confirmation?: number;
+    isAvailable?:Array<Boolean>;
 }

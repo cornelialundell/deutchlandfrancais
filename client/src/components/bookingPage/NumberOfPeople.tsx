@@ -1,7 +1,12 @@
 import { FormEvent, useState } from "react";
 import Select from "react-select";
 import { Option } from "react-select/src/filters";
-export const NumberOfPeople = (props: any) => {
+import { IBooking } from "./bookingPage";
+
+
+export const NumberOfPeople = (props: IBooking) => {
+ 
+
   const [numberOfPeople, setGuests] = useState<number | null>();
 
   const options = [
