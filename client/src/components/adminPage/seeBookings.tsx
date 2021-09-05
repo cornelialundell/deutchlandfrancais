@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Booking } from "../bookingPage/booking";
 import { Button } from "../globalStyles/Button";
+import { Card } from "./editBooking.style";
 
 let date: string = "2021-09-03";
 
@@ -33,14 +34,16 @@ export const SeeBookings = (props:any) => {
         <ul>
           {bookings.map((booking, index) => {
             return (
-              <li key={index} className={isEdit ? "editMode" : ""}>
-                <p>{booking.name}</p>
+              <Card>
+              <li className={isEdit ? "editMode" : ""}>
+                <p>Namn: {booking.name}</p>
                 <p>Antal gäster: {booking.guests}</p>
-                <p>Tid: {booking.time}</p>
+                <p>Tid: {booking.time}:00</p>
                 <Link to={`/edit/${booking.confirmation}`}>
-                  <button key={index}>Edit</button>
+                  <Button bgColor="#ED7D0C" key={index}>Edit</Button>
                 </Link>
               </li>
+              </Card>
             );
           })}
         </ul>
