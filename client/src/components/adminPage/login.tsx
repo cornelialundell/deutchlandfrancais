@@ -20,7 +20,7 @@ export const LogIn = (props: any) => {
         password,
       };
 
-      await axios.post("http://localhost:9000/login", sendData, {withCredentials: true}).then((resp) => (
+      await axios.post("http://localhost:9000/login", sendData, {withCredentials: true}).then(() => (
         Cookies.set('cookie', "loggedin"),
         props.setCookie(true)
 

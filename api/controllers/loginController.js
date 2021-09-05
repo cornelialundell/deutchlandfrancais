@@ -16,14 +16,8 @@ const login = async (req, res) => {
       .json({ message: "Användarnamnet eller lösenordet är felaktigt." });
   }
 
-  const token = await jwt.sign(
-    {
-        user: correctAdmin._id,
-    },
-    process.env.SECRET_KEY
-);
-console.log(token)
-res.cookie("token", token, {httpOnly: true}).send(token);
+ 
+res.status(201).send();
 };
 
 module.exports = { login };
