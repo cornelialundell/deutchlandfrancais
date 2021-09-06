@@ -53,26 +53,7 @@ export const BookingPage:React.FC  = () => {
     // const bookedEmail = booking.email
     // const bookedPhone = booking.phones
 
-    sendData();
-    async function sendData() {
-      try {
-      console.log(booking)
     
-      const sendData = {
-        booking
-      //bookedName,
-      //bookedEmail,
-      //bookedPhone,
-    };
-
-    axios.post("http://localhost:9000/confirmBooking", sendData)
-          .catch((err) => {
-            console.log(err)
-          })
-     } catch (err) {
-        console.log(err);
-      }
-    }
   };
 
   return (
