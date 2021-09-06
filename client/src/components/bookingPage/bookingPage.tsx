@@ -82,6 +82,7 @@ export const BookingPage: React.FC = () => {
         console.log(err);
       }
     }
+
   };
   
 

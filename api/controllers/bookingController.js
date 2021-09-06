@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Booking = require("../models/Booking");
 const nodemailer = require("nodemailer");
 const nodemailerSmtpTransport = require("nodemailer-smtp-transport");
+const { deleteOne } = require("../models/Booking");
 const POSSIBLE_TIMES = [18, 21];
 
 const transport = nodemailer.createTransport(
@@ -92,4 +93,19 @@ const addBooking = async (req, res) => {
   });
 };
 
-module.exports = { addBooking, checkAvailability, getBookings };
+const cancelBooking = async (req, res) => {
+  try {
+  const confirmation = req.body.confirmationNumber;
+  await Booking.deleteOne({confirmation: confirmation});
+
+
+  } catch (error) {
+    console.log("error");
+  }
+  
+  res.status(200).send()
+}
+
+
+
+module.exports = { addBooking, checkAvailability, getBookings, cancelBooking };
