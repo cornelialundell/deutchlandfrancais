@@ -29,7 +29,7 @@ const checkAvailability = async (req, res) => {
   const chosenDate = req.body.bookedDay;
   const newPeople = req.body.bookedPeople;
 
-  if (!chosenDate) {
+  if (!chosenDate | !newPeople) {
     return res.status(404).json({ message: "fyll i alla fälten" });
   }
 

@@ -13,6 +13,7 @@ font-family: 'Bangers';
 font-size: 2rem;
 cursor: pointer;
 transition: all 0.2s ease;
+margin: 1rem 0;
 
 &:hover {
     background-color: #635298;

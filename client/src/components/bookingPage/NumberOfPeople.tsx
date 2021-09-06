@@ -3,10 +3,7 @@ import Select from "react-select";
 import { Option } from "react-select/src/filters";
 import { IBooking } from "./bookingPage";
 
-
 export const NumberOfPeople = (props: IBooking) => {
- 
-
   const [numberOfPeople, setGuests] = useState<number | null>();
 
   const options = [
@@ -32,7 +29,8 @@ export const NumberOfPeople = (props: IBooking) => {
 
   return (
     <div>
-      <p>Hur många e ni?</p>
+      <p>Hur stort är ert sällskap?</p>
+      <p>För större bokningar ring på vår telefon.</p>
 
       <Select
         options={options}
