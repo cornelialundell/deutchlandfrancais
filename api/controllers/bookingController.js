@@ -17,9 +17,9 @@ const transport = nodemailer.createTransport(
 
 
 const getBookings = async (req, res) => {
-  const todaysDate = req.query.date
+  const chosenDate = req.query.date
   const bookings = await Booking.find({
-    date: todaysDate
+    date: chosenDate
   });
 
   res.send(bookings)
@@ -70,11 +70,11 @@ const checkAvailability = async (req, res) => {
 };
 
 const addBooking = async (req, res) => {
-  const { day, guests, time, name, email, phones } = req.body.booking;
+  const { date, guests, time, name, email, phones } = req.body.booking;
   const confirmation = Math.floor(Math.random() * 1000000);
 
   const newBooking = await new Booking({
-    date: day,
+    date: date,
     guests: guests,
     time: time,
     name: name,

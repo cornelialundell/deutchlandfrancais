@@ -1,8 +1,10 @@
 export class Booking {
-    day?: String;
+    date?: String;
     guests?: number = 0;
     time?: number;
     name?: string;
     email?: string;
     phones?: string;
+    confirmation?: number;
+    isAvailable?:Array<Boolean>;
 }

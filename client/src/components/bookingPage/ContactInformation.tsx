@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from "react";
+import { IBooking } from "./bookingPage";
 
-export const ContactInformation = (props: any) => {
+export const ContactInformation = (props: IBooking) => {
   const [guestName, setGuestName] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
   const [guestPhone, setGuestPhone] = useState("");

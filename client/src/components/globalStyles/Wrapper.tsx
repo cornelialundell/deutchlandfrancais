@@ -1,6 +1,10 @@
 import styled from 'styled-components';
-import background from './../../img/background.jpeg'
 
+
+interface IStyledWrapper {
+    bg?: string;    
+    clr?: string;
+}
 export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -8,7 +12,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     width: 100vw;
     min-height: 100vh;
-    background: url(${background});
+    background: ${(props: IStyledWrapper) => props.bg ? props.bg : '#F8F2ED'};
     background-size: cover;
-    color: white;
+    color: ${(props: IStyledWrapper) => props.clr ? props.clr : '#222222'};
 `
