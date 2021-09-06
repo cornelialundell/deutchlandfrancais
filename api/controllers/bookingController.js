@@ -27,8 +27,9 @@ const getBookings = async (req, res) => {
 
 const checkAvailability = async (req, res) => {
   const isAvailableArray = [];
-  const chosenDate = req.body.bookedDay;
-  const newPeople = req.body.bookedPeople;
+  const chosenDate = req.body.booking.date;
+  const newPeople = req.body.booking.guests;
+  console.log(chosenDate + newPeople)
 
   if (!chosenDate | !newPeople) {
     return res.status(404).json({ message: "fyll i alla fälten" });
@@ -70,6 +71,7 @@ const checkAvailability = async (req, res) => {
 };
 
 const addBooking = async (req, res) => {
+  console.log(req.body.booking)
   const { date, guests, time, name, email, phones } = req.body.booking;
   const confirmation = Math.floor(Math.random() * 1000000);
 
@@ -83,14 +85,17 @@ const addBooking = async (req, res) => {
     confirmation: confirmation,
   }).save();
 
+
   await transport.sendMail({
-    from: "feddynamiskweb@gmail.com",
+    from: "fusionrestaurant.info@gmail.com",
     to: email,
     subject: "Bokningsbekräftelse",
 
     html: `<h1> Tack för din bokning! </h1>
-  <h3> Du är välkommen kl ${time}:00 ${day}. <br> Ditt ordernummer är ${confirmation}`,
+  <h3> Du är välkommen kl ${time}:00 ${date}. <br> Ditt ordernummer är ${confirmation}`,
   });
+
+  res.status(200).send()
 };
 
 const cancelBooking = async (req, res) => {
