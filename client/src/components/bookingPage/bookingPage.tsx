@@ -50,6 +50,7 @@ export const BookingPage: React.FC = () => {
     }
   };
 
+
   const confirmBooking = () => {
  
     sendData();
@@ -70,6 +71,7 @@ export const BookingPage: React.FC = () => {
         console.log(err);
       }
     }
+
   };
 
   return (
