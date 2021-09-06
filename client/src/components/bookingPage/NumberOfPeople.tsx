@@ -1,10 +1,13 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Select from "react-select";
-import { Option } from "react-select/src/filters";
-import { IBooking } from "./bookingPage";
 
-export const NumberOfPeople = (props: IBooking) => {
-  const [numberOfPeople, setGuests] = useState<number | null>();
+interface IBookingGuestsProps {
+  guests: number | null | undefined;
+  selectGuests(guests: number): void;
+}
+
+export const NumberOfPeople = (props: IBookingGuestsProps) => {
+  const [numberOfPeople, setGuests] = useState<number | null | undefined>();
 
   const options = [
     { value: 1, label: 1 },
@@ -38,7 +41,7 @@ export const NumberOfPeople = (props: IBooking) => {
           if (event) {
             setGuests(event.value);
 
-            props.booking.guests = event.value;
+            props.selectGuests(event.value);
           }
         }}
       />

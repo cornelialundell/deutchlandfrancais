@@ -9,6 +9,7 @@ import { BookingPage } from './components/bookingPage/bookingPage';
 import { AdminPage } from './components/adminPage/adminPage';
 import { CancelBookingPage} from './components/cancelBookingPage/cancelBooking';
 import { EditBooking } from './components/adminPage/editBooking';
+import { ThankyouPage } from './components/thankyouPage/thankYou';
 
 
 function App() {
@@ -39,6 +40,10 @@ function App() {
     {/* <Navigation /> */}
       {/* <AdminPage /> */}
       <EditBooking />
+    </Route>
+    <Route exact path="/thankyou">
+    {/* <Navigation /> */}
+      <ThankyouPage />
     </Route>
 </Switch>
   </Router>
