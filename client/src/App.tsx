@@ -20,7 +20,7 @@ function App() {
       <LandingPage /> 
     </Route>
     <Route exact path="/contact">
-    {/* //<Nav/> */}
+    <Navigation/>
       <ContactPage/> 
     </Route>
     <Route exact path="/booking">
@@ -33,6 +33,7 @@ function App() {
     </Route>
 
     <Route exact path="/cancel">
+      <Navigation/>
       <CancelBookingPage/>
       </Route>
     <Route exact path="/edit/:id">
