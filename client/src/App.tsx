@@ -10,6 +10,7 @@ import { AdminPage } from './components/adminPage/adminPage';
 import { CancelBookingPage} from './components/cancelBookingPage/cancelBooking';
 import { EditBooking } from './components/adminPage/editBooking';
 import { ThankyouPage } from './components/thankyouPage/thankYou';
+import { FoodMenu } from './components/foodMenu/foodMenu';
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
     <Route exact path="/admin">
     <Navigation />
       <AdminPage />
+    </Route>
+    <Route exact path="/menu">
+      <Navigation/>
+      <FoodMenu/>
     </Route>
 
     <Route exact path="/cancel">
