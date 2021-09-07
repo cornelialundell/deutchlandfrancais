@@ -7,4 +7,4 @@ export const LoadingPage = () => {
         <Loader type="TailSpin" color="#DDC8B5" height={80} width={80} />
         </Center>
     )
-}
+} 
