@@ -4,7 +4,7 @@ import { Link, Redirect, useParams } from "react-router-dom";
 import { Booking } from "../bookingPage/booking";
 import { Button } from "../globalStyles/Button";
 import { Wrapper } from "../globalStyles/Wrapper";
-import { Card } from "./editBooking.style";
+import { Card, StyledDiv } from "./editBooking.style";
 import { useHistory } from "react-router-dom";
 
 interface IParams {
@@ -15,6 +15,7 @@ export const EditBooking = () => {
   let history = useHistory()
   
   const [booking, setBooking] = useState<Booking>();
+  const [confirmationNumber, setConfirmationNumber] = useState<number | undefined>();
   const params: IParams = useParams();
   const id: number = parseInt(params.id);
 
@@ -27,6 +28,7 @@ export const EditBooking = () => {
       })
       .then((resp) => {
         setBooking(resp.data);
+        setConfirmationNumber(resp.data.confirmation)
       })
       .catch((err) => {
         console.log(err);
@@ -34,6 +36,7 @@ export const EditBooking = () => {
   }
   useEffect(() => {
     getBooking(); 
+    
   }, []);
 
   async function updateBooking(e: FormEvent) {
@@ -56,6 +59,33 @@ export const EditBooking = () => {
       console.log(err);
     }
     history.goBack()
+  }
+
+  const deleteBooking = () => {
+    
+    console.log(confirmationNumber)
+
+    deleteData();
+    async function deleteData() {
+      try {
+
+
+        const sendData = {
+          confirmationNumber,
+        };
+
+        axios
+          .post("http://localhost:9000/cancelBooking", sendData)
+          .then(() => alert("Bokningen är nu avbokad"))
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  
+
   }
   return (
     <>
@@ -85,8 +115,12 @@ export const EditBooking = () => {
                 }}
               />
             </Card>
-            <Button type="submit">Save</Button>
+            <StyledDiv>
+            <Button type="button" onClick={deleteBooking}>Ta bort bokning</Button>
+            <Button type="submit">Spara</Button>
+            </StyledDiv>
         </form>
+        
         </Wrapper>
       ) : (
         <p>finns ingen bokning</p>
