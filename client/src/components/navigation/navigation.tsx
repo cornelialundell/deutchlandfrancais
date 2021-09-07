@@ -14,7 +14,7 @@ console.log(location.pathname);
         <a href="/">
           <li>Start</li>
         </a>
-        <a href="#"> 
+        <a href="/menu">
           <li>Meny</li>
         </a>
         <a href="/booking">
@@ -31,7 +31,7 @@ console.log(location.pathname);
             <a href="/">
               <li>Start</li>
             </a>
-            <a href="#"> 
+            <a href="/menu"> 
               <li>Meny</li>
             </a>
             <a href="/booking">
