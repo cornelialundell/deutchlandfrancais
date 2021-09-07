@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { StyledDiv } from "./bookingPage.style";
 import { TimeButton } from "./timeButton.style";
+
 
 interface IBookingTimeProps {
   time: number | undefined;
@@ -12,9 +14,11 @@ export const Time = (props: IBookingTimeProps) => {
     const chosenTime = parseInt((event.target as HTMLBodyElement).id);
     props.selectTime(chosenTime);
   };
+ 
 
   if (props.isAvailable) {
     return (
+      
       <StyledDiv>
         <TimeButton
           id="18"
@@ -37,7 +41,7 @@ export const Time = (props: IBookingTimeProps) => {
           }
         >
           21:00
-        </TimeButton>
+        </TimeButton>        
       </StyledDiv>
     );
   } else {
