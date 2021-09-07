@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { isPropertySignature } from 'typescript';
 
 interface IStyledButton {
     bgColor?: string;    
+    hBg?: string;
 }
 
 export const Button = styled.button`
@@ -16,6 +18,6 @@ transition: all 0.2s ease;
 margin: 1rem 0;
 
 &:hover {
-    background-color: #635298;
+    background-color: #635298 ;
 }
 `
