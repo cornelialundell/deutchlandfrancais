@@ -9,6 +9,7 @@ import { BookingPage } from './components/bookingPage/bookingPage';
 import { AdminPage } from './components/adminPage/adminPage';
 import { CancelBookingPage} from './components/cancelBookingPage/cancelBooking';
 import { EditBooking } from './components/adminPage/editBooking';
+import { ThankyouPage } from './components/thankyouPage/thankYou';
 
 
 function App() {
@@ -16,11 +17,11 @@ function App() {
     <Router>
     <Switch>
     <Route exact path="/">
-     <Navigation/>
+     <Navigation />
       <LandingPage /> 
     </Route>
     <Route exact path="/contact">
-    <Navigation/>
+    <Navigation />
       <ContactPage/> 
     </Route>
     <Route exact path="/booking">
@@ -28,7 +29,7 @@ function App() {
       <BookingPage />
     </Route>
     <Route exact path="/admin">
-    {/* <Navigation /> */}
+    <Navigation />
       <AdminPage />
     </Route>
 
@@ -37,9 +38,12 @@ function App() {
       <CancelBookingPage/>
       </Route>
     <Route exact path="/edit/:id">
-    {/* <Navigation /> */}
-      {/* <AdminPage /> */}
+    <Navigation />
       <EditBooking />
+    </Route>
+    <Route exact path="/thankyou">
+    <Navigation />
+      <ThankyouPage />
     </Route>
 </Switch>
   </Router>

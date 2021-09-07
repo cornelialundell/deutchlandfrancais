@@ -9,102 +9,147 @@ import { Time } from "./Time";
 import { Wrapper } from "../globalStyles/Wrapper";
 import { StyledDiv } from "./bookingPage.style";
 import { Button } from "../globalStyles/Button";
+import { useHistory } from "react-router-dom";
 
 export interface IBooking {
-  booking: Booking,
+  date?: String;
+  guests?: number;
+  time?: number;
+  guestName?: string;
+  email?: string;
+  phones?: string;
+  confirmation?: number;
+  isAvailable?: Array<Boolean>;
 }
 
 export const BookingPage: React.FC = () => {
-  
+  let history = useHistory()
   const [booking, setBooking] = useState<Booking>(new Booking());
-  const [numberOfPeople, setGuests] = useState<number | null>();
-  const [day, onChange] = useState(new Date());
-  let [isAvailable, setAvailable] = useState<[] | null>();
-  const [time, setTime] = useState<number | undefined>(undefined);
+  const [numberOfPeople, setGuests] = useState<number | null | undefined>();
+  const [day, onChange] = useState<string>("");
+  let [isAvailable, setAvailable] = useState<[]>();
+  const [time, setTime] = useState<number | undefined>();
   const [showComponent, setShowComponent] = useState(true);
   const [guestName, setGuestName] = useState("");
-  const [guestEmail, setGuestEmail] = useState("");
-  const [guestPhone, setGuestPhone] = useState("");
+  const [email, setGuestEmail] = useState("");
+  const [phones, setGuestPhone] = useState("");
   const [toggleTimes, setToggleTimes] = useState<boolean>(false);
 
-// useEffect(()=> {
-//   
-//       }, [])
-  const checkAvailability = () => {
-    const bookedDay = booking.date;
-    const bookedPeople = booking.guests;
+  // UPDATE EVERYTHING ON BOOKING
+  function selectDate(bookingDate: string) {
+    onChange(bookingDate);
+  }
 
+  function selectGuests(bookingGuests: number) {
+    setGuests(bookingGuests);
+  }
+
+  function selectTime(bookingTime: number) {
+    setTime(bookingTime);
+  }
+
+  function selectName(bookingName: string) {
+    setGuestName(bookingName);
+  }
+  function selectEmail(bookingEmail: string) {
+    setGuestEmail(bookingEmail);
+  }
+  function selectPhones(bookingPhones: string) {
+    setGuestPhone(bookingPhones);
+  }
+
+  const checkAvailability = () => {
     sendData();
     async function sendData() {
       try {
-        console.log(booking.date);
         const sendData = {
-          bookedDay,
-          bookedPeople,
+          booking: {
+            date: day,
+            guests: numberOfPeople,
+          },
         };
 
         axios
           .post("http://localhost:9000/booking", sendData)
           .then((resp) => {
-            booking.isAvailable = resp.data
+            booking.isAvailable = resp.data;
             setAvailable(resp.data);
-            
           })
           .catch((err) => {
             console.log(err);
-            alert('Fyll i alla fält.')
+            alert("Fyll i alla fält.");
           });
       } catch (err) {
         console.log(err);
       }
     }
   };
-
- 
 
   const confirmBooking = () => {
     sendData();
     async function sendData() {
       try {
-        console.log(booking);
-
         const sendData = {
-          booking,
+          booking: {
+            date: day,
+            guests: numberOfPeople,
+            time: time,
+            name: guestName,
+            email: email,
+            phones: phones,
+          },
         };
 
         axios
           .post("http://localhost:9000/confirmBooking", sendData)
+          .then(() => {
+            history.push('/thankyou')
+          })
           .catch((err) => {
             console.log(err);
-            alert('Något blev fel, försök igen.')
+            alert("Något blev fel, försök igen.");
           });
       } catch (err) {
+        alert("Något blev fel, försök igen.");
         console.log(err);
       }
     }
-
   };
-  
+
 
   return (
     <Wrapper>
       {showComponent ? (
         <StyledDiv>
-          <Day booking={booking} />
-          <NumberOfPeople booking={booking} />
+          <Day date={day} selectDate={selectDate} />
+          <NumberOfPeople
+            guests={numberOfPeople}
+            selectGuests={selectGuests}
+          />
           <Button onClick={checkAvailability}>Sök lediga tider</Button>
-          <Time booking={booking}/>
-        {console.log(time)}
-          <Button onClick={() => setShowComponent(false)}>gå vidare </Button>
+          <Time time={time} selectTime={selectTime} isAvailable={isAvailable} />
+          {time ? (
+            <Button onClick={() => setShowComponent(false)}>gå vidare </Button>
+          ) : (
+            <></>
+          )}
         </StyledDiv>
       ) : (
         <StyledDiv>
-          <p>Datum: {booking.date}</p>
-          <p>Antal gäster: {booking.guests}</p>
-          <p>Tid: Kl {booking.time}</p>
+          <p>Datum: {day}</p>
+          <p>Antal gäster: {numberOfPeople}</p>
+          <p>Tid: Kl {time}</p>
           <p>Vänligen fyll i: </p>
 
-          <ContactInformation booking={booking} />
+          <ContactInformation
+            guestName={guestName}
+            email={email}
+            phones={phones}
+            selectName={selectName}
+            selectEmail={selectEmail}
+            selectPhones={selectPhones}
+            
+          />
           <button onClick={confirmBooking}>Bekräfta</button>
         </StyledDiv>
       )}
