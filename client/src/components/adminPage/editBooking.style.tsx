@@ -33,3 +33,9 @@ export const Card = styled.div`
         font-weight: 700;
     }
 `
+
+export const StyledDiv = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+
+`
