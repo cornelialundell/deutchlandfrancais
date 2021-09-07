@@ -21,6 +21,7 @@ export const ContactInformation = (props: IBookingContactProps) => {
         <input
           type="text"
           placeholder="namn"
+          required
           onChange={(e) => {
             setGuestName(e.target.value);
             props.selectName(e.target.value);
@@ -28,8 +29,9 @@ export const ContactInformation = (props: IBookingContactProps) => {
           value={guestName}
         />
         <input
-          type="text"
+          type="email"
           placeholder="email"
+          required
           onChange={(e) => {
             setGuestEmail(e.target.value);
             props.selectEmail(e.target.value);
@@ -39,6 +41,7 @@ export const ContactInformation = (props: IBookingContactProps) => {
         <input
           type="text"
           placeholder="telefonnummer"
+          required
           onChange={(e) => {
             setGuestPhone(e.target.value);
             props.selectPhones(e.target.value);

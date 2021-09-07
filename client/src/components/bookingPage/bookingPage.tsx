@@ -11,6 +11,7 @@ import { StyledDiv } from "./bookingPage.style";
 import { Button } from "../globalStyles/Button";
 import { useHistory } from "react-router-dom";
 import { LoadingPage } from "../loading/loading";
+import { Heading } from "../globalStyles/Heading";
 
 export interface IBooking {
   date?: String;
@@ -93,6 +94,16 @@ export const BookingPage: React.FC = () => {
   };
 
   const confirmBooking = () => {
+    // CHECK IF EMAIL IS VALID
+    let lastDotPos = email.lastIndexOf('.');
+    if (!(email.indexOf('@@') == -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
+      return alert('Fyll i en korrekt email!')
+    };
+
+    if (phones.length !== 10 || phones.match(/^[0-9]+$/) == null) {
+      return alert('Fyll i en korrekt telefonnummer! Exempel: 0712345678')
+    }
+
     sendData();
     async function sendData() {
       try {
@@ -125,8 +136,10 @@ export const BookingPage: React.FC = () => {
 
   return (
     <Wrapper>
+      
       {showComponent ? (
         <StyledDiv>
+          <Heading>Boka bord</Heading>
           <Day date={day} selectDate={selectDate} />
           <NumberOfPeople guests={numberOfPeople} selectGuests={selectGuests} />
           <Button onClick={checkAvailability}>Sök lediga tider</Button>
@@ -154,6 +167,7 @@ export const BookingPage: React.FC = () => {
         </StyledDiv>
       ) : (
         <StyledDiv>
+          <Heading>Vem är du?</Heading>
           <p>Datum: {day}</p>
           <p>Antal gäster: {numberOfPeople}</p>
           <p>Tid: Kl {time}</p>
@@ -167,7 +181,7 @@ export const BookingPage: React.FC = () => {
             selectEmail={selectEmail}
             selectPhones={selectPhones}
           />
-          <button onClick={confirmBooking}>Bekräfta</button>
+          <Button onClick={confirmBooking}>Bekräfta</Button>
         </StyledDiv>
       )}
     </Wrapper>

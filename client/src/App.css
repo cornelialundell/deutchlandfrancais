@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
 
 * {
   margin: 0;
@@ -8,12 +7,24 @@
   box-sizing: border-box;
 }
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #F8F2ED;
+  font-family: "Roboto", sans-serif;
+  background-color: #f8f2ed;
 }
 
 h2 {
-  font-family: 'Bangers', cursive;
+  font-family: "Bangers", cursive;
 }
 
-
+form {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  color: #222;
+  border: none;
+  font-size: 1.5rem;
+  background-color: #f0e4d9;
+  margin: 1rem 0;
+  padding: 1rem;
+  font-weight: 700;
+}
