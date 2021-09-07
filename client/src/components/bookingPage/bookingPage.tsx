@@ -10,6 +10,7 @@ import { Wrapper } from "../globalStyles/Wrapper";
 import { StyledDiv } from "./bookingPage.style";
 import { Button } from "../globalStyles/Button";
 import { useHistory } from "react-router-dom";
+import { LoadingPage } from "../loading/loading";
 
 export interface IBooking {
   date?: String;
@@ -23,7 +24,9 @@ export interface IBooking {
 }
 
 export const BookingPage: React.FC = () => {
-  let history = useHistory()
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [checkClick, setCheckClick] = useState<Boolean>(false);
+  let history = useHistory();
   const [booking, setBooking] = useState<Booking>(new Booking());
   const [numberOfPeople, setGuests] = useState<number | null | undefined>();
   const [day, onChange] = useState<string>("");
@@ -74,6 +77,10 @@ export const BookingPage: React.FC = () => {
           .then((resp) => {
             booking.isAvailable = resp.data;
             setAvailable(resp.data);
+            setCheckClick(true)
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 1500);
           })
           .catch((err) => {
             console.log(err);
@@ -103,7 +110,7 @@ export const BookingPage: React.FC = () => {
         axios
           .post("http://localhost:9000/confirmBooking", sendData)
           .then(() => {
-            history.push('/thankyou')
+            history.push("/thankyou");
           })
           .catch((err) => {
             console.log(err);
@@ -116,18 +123,29 @@ export const BookingPage: React.FC = () => {
     }
   };
 
-
   return (
     <Wrapper>
       {showComponent ? (
         <StyledDiv>
           <Day date={day} selectDate={selectDate} />
-          <NumberOfPeople
-            guests={numberOfPeople}
-            selectGuests={selectGuests}
-          />
+          <NumberOfPeople guests={numberOfPeople} selectGuests={selectGuests} />
           <Button onClick={checkAvailability}>Sök lediga tider</Button>
-          <Time time={time} selectTime={selectTime} isAvailable={isAvailable} />
+          {checkClick ? (
+            <>
+             {isLoading ? (
+              <LoadingPage />
+            ) : (
+              <Time
+                time={time}
+                selectTime={selectTime}
+                isAvailable={isAvailable}
+              />
+            )}</>
+          ) : (
+            <></>
+          )}
+         
+
           {time ? (
             <Button onClick={() => setShowComponent(false)}>gå vidare </Button>
           ) : (
@@ -148,7 +166,6 @@ export const BookingPage: React.FC = () => {
             selectName={selectName}
             selectEmail={selectEmail}
             selectPhones={selectPhones}
-            
           />
           <button onClick={confirmBooking}>Bekräfta</button>
         </StyledDiv>
