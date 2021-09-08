@@ -7,11 +7,16 @@ import React from "react";
 import axios from "axios";
 import { Time } from "./Time";
 import { Wrapper } from "../globalStyles/Wrapper";
-import { StyledDiv } from "./bookingPage.style";
+import { FlexDiv, StyledDiv } from "./bookingPage.style";
 import { Button } from "../globalStyles/Button";
 import { useHistory } from "react-router-dom";
 import { LoadingPage } from "../loading/loading";
 import { Heading } from "../globalStyles/Heading";
+import Modal from "react-modal";
+import { P } from "../globalStyles/P-style";
+import { Gdpr } from "./gdpr";
+
+
 
 export interface IBooking {
   date?: String;
@@ -38,6 +43,8 @@ export const BookingPage: React.FC = () => {
   const [email, setGuestEmail] = useState("");
   const [phones, setGuestPhone] = useState("");
   const [toggleTimes, setToggleTimes] = useState<boolean>(false);
+  const [checked, setChecked] = useState<Boolean>(false)
+
 
   // UPDATE EVERYTHING ON BOOKING
   function selectDate(bookingDate: string) {
@@ -62,6 +69,10 @@ export const BookingPage: React.FC = () => {
     setGuestPhone(bookingPhones);
   }
 
+  function selectChecked(bookingChecked: Boolean) {
+    setChecked(bookingChecked);
+  }
+
   const checkAvailability = () => {
     sendData();
     async function sendData() {
@@ -78,7 +89,7 @@ export const BookingPage: React.FC = () => {
           .then((resp) => {
             booking.isAvailable = resp.data;
             setAvailable(resp.data);
-            setCheckClick(true)
+            setCheckClick(true);
             setTimeout(() => {
               setIsLoading(false);
             }, 1500);
@@ -95,13 +106,19 @@ export const BookingPage: React.FC = () => {
 
   const confirmBooking = () => {
     // CHECK IF EMAIL IS VALID
-    let lastDotPos = email.lastIndexOf('.');
-    if (!(email.indexOf('@@') == -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
-      return alert('Fyll i en korrekt email!')
-    };
+    let lastDotPos = email.lastIndexOf(".");
+    if (
+      !(
+        email.indexOf("@@") == -1 &&
+        lastDotPos > 2 &&
+        email.length - lastDotPos > 2
+      )
+    ) {
+      return alert("Fyll i en korrekt email!");
+    }
 
     if (phones.length !== 10 || phones.match(/^[0-9]+$/) == null) {
-      return alert('Fyll i en korrekt telefonnummer! Exempel: 0712345678')
+      return alert("Fyll i en korrekt telefonnummer! Exempel: 0712345678");
     }
 
     sendData();
@@ -134,9 +151,9 @@ export const BookingPage: React.FC = () => {
     }
   };
 
+  
   return (
     <Wrapper>
-      
       {showComponent ? (
         <StyledDiv>
           <Heading>Boka bord</Heading>
@@ -145,22 +162,27 @@ export const BookingPage: React.FC = () => {
           <Button onClick={checkAvailability}>Sök lediga tider</Button>
           {checkClick ? (
             <>
-             {isLoading ? (
-              <LoadingPage />
-            ) : (
-              <Time
-                time={time}
-                selectTime={selectTime}
-                isAvailable={isAvailable}
-              />
-            )}</>
+              {isLoading ? (
+                <LoadingPage />
+              ) : (
+                <Time
+                  time={time}
+                  selectTime={selectTime}
+                  isAvailable={isAvailable}
+                />
+              )}
+            </>
+
           ) : (
             <></>
           )}
-         
 
           {time ? (
-            <Button onClick={() => setShowComponent(false)}>gå vidare </Button>
+            <>
+              <Button onClick={() => setShowComponent(false)}>
+                gå vidare{" "}
+              </Button>
+            </>
           ) : (
             <></>
           )}
@@ -181,7 +203,15 @@ export const BookingPage: React.FC = () => {
             selectEmail={selectEmail}
             selectPhones={selectPhones}
           />
-          <Button onClick={confirmBooking}>Bekräfta</Button>
+          <Gdpr checked={checked} selectChecked={selectChecked}/>
+              { checked ? (
+                <Button onClick={confirmBooking}>Bekräfta</Button>
+              ):(
+                <></>
+              )}
+                
+             
+          
         </StyledDiv>
       )}
     </Wrapper>
