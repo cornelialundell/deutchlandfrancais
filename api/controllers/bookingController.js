@@ -29,7 +29,6 @@ const checkAvailability = async (req, res) => {
   const isAvailableArray = [];
   const chosenDate = req.body.booking.date;
   const newPeople = req.body.booking.guests;
-  console.log(chosenDate + newPeople)
 
   if (!chosenDate | !newPeople) {
     return res.status(404).json({ message: "fyll i alla fälten" });
@@ -43,7 +42,6 @@ const checkAvailability = async (req, res) => {
     if (time == 1) {
       currentTime = 21;
     }
-    console.log(currentTime);
 
     const bookings = await Booking.find({
       date: chosenDate,
@@ -63,7 +61,6 @@ const checkAvailability = async (req, res) => {
     } else {
       isAvailable = false;
     }
-    console.log(isAvailable);
     isAvailableArray.push(isAvailable);
   }
 
@@ -71,7 +68,6 @@ const checkAvailability = async (req, res) => {
 };
 
 const addBooking = async (req, res) => {
-  console.log(req.body.booking)
   const { date, guests, time, name, email, phones } = req.body.booking;
   const confirmation = Math.floor(Math.random() * 1000000);
 

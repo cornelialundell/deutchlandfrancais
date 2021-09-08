@@ -204,7 +204,7 @@ export const BookingPage: React.FC = () => {
             selectPhones={selectPhones}
           />
           <Gdpr checked={checked} selectChecked={selectChecked}/>
-              { checked ? (
+              { checked && email && guestName && phones.length === 10 ? (
                 <Button onClick={confirmBooking}>Bekräfta</Button>
               ):(
                 <></>
