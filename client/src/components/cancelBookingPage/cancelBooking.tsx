@@ -20,7 +20,6 @@ export const CancelBookingPage = () => {
 
   const cancelBooking = (e: FormEvent) => {
     e.preventDefault();
-    console.log(confirmationNumber)
 
     deleteData();
     async function deleteData() {
