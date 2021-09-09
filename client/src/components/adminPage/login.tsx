@@ -3,11 +3,13 @@ import { FormEvent, useState } from "react";
 import { Button } from "../globalStyles/Button";
 import { Form } from "./login.style";
 import Cookies from 'js-cookie';
+import { P } from "../globalStyles/P-style";
 
 
 export const LogIn = (props: any) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [flashMessage, setFlashMessage] = useState("");
 
 
   
@@ -21,16 +23,19 @@ export const LogIn = (props: any) => {
       };
 
       await axios.post("http://localhost:9000/login", sendData, {withCredentials: true}).then(() => (
+        setFlashMessage(''),
         Cookies.set('cookie', "loggedin"),
         props.setCookie(true)
-
+        
       ));
     } catch (err) {
+      setFlashMessage('fel användarnamn eller lösenord')
       console.log(err);
     }
   }
   return (
     <Form onSubmit={login}>
+      <P>{flashMessage}</P>
       <input
         type="text"
         placeholder="username"

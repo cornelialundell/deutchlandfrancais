@@ -26,6 +26,10 @@ const updateBooking = async (req, res) => {
   const id = req.body.booking._id;
   const POSSIBLE_TIMES = [time];
 
+  if (time !== 21 | time !== 18) {
+    return res.status(400).json({ message: "Tid tyvärr inte giltig" });
+  }
+
   let isAvailableArray = await checkTables(POSSIBLE_TIMES, guests, date)
 
   if (isAvailableArray[0] == false) {
