@@ -36,7 +36,7 @@ return (
     <>
     <FlexDiv>
             <input type="checkbox" onChange={() => {props.selectChecked(!props.checked)}}/>
-            <P>Godkänn våra <a href="/booking" onClick={openModal}>villkor</a></P></FlexDiv>
+            <P>Godkänn våra <a href="#" onClick={openModal}>villkor</a></P></FlexDiv>
               <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
