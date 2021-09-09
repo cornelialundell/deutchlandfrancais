@@ -1,6 +1,5 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
-import { Booking } from "../bookingPage/booking";
 import styled from "styled-components";
 import { Wrapper } from "../globalStyles/Wrapper";
 import { Button } from "../globalStyles/Button";

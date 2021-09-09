@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Heading } from "../globalStyles/Heading";
 import { P } from "../globalStyles/P-style";
 import { ComputerFlex } from "../globalStyles/ComputerFlex";

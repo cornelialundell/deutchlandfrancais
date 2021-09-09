@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { StyledDiv } from "./bookingPage.style";
 import { TimeButton } from "./timeButton.style";
 

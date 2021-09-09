@@ -22,12 +22,12 @@ export const LogIn = (props: any) => {
         password,
       };
 
-      await axios.post("http://localhost:9000/login", sendData, {withCredentials: true}).then(() => (
-        setFlashMessage(''),
-        Cookies.set('cookie', "loggedin"),
+      await axios.post("http://localhost:9000/login", sendData, {withCredentials: true}).then(() => {
+        setFlashMessage('')
+        Cookies.set('cookie', "loggedin")
         props.setCookie(true)
         
-      ));
+    });
     } catch (err) {
       setFlashMessage('fel användarnamn eller lösenord')
       console.log(err);

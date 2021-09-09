@@ -1,19 +1,17 @@
 import { Day } from "./Day";
 import { ContactInformation } from "./ContactInformation";
 import { NumberOfPeople } from "./NumberOfPeople";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Booking } from "./booking";
 import React from "react";
 import axios from "axios";
 import { Time } from "./Time";
 import { Wrapper } from "../globalStyles/Wrapper";
-import { FlexDiv, StyledDiv } from "./bookingPage.style";
+import { StyledDiv } from "./bookingPage.style";
 import { Button } from "../globalStyles/Button";
 import { useHistory } from "react-router-dom";
 import { LoadingPage } from "../loading/loading";
 import { Heading } from "../globalStyles/Heading";
-import Modal from "react-modal";
-import { P } from "../globalStyles/P-style";
 import { Gdpr } from "./gdpr";
 
 
@@ -42,7 +40,6 @@ export const BookingPage: React.FC = () => {
   const [guestName, setGuestName] = useState("");
   const [email, setGuestEmail] = useState("");
   const [phones, setGuestPhone] = useState("");
-  const [toggleTimes, setToggleTimes] = useState<boolean>(false);
   const [checked, setChecked] = useState<Boolean>(false)
 
 
@@ -88,6 +85,7 @@ export const BookingPage: React.FC = () => {
           .post("http://localhost:9000/booking", sendData)
           .then((resp) => {
             booking.isAvailable = resp.data;
+            setBooking(booking)
             setAvailable(resp.data);
             setCheckClick(true);
             setTimeout(() => {
@@ -109,7 +107,7 @@ export const BookingPage: React.FC = () => {
     let lastDotPos = email.lastIndexOf(".");
     if (
       !(
-        email.indexOf("@@") == -1 &&
+        email.indexOf("@@") === -1 &&
         lastDotPos > 2 &&
         email.length - lastDotPos > 2
       )

@@ -1,4 +1,3 @@
-import { useHistory } from "react-router-dom";
 import { Nav } from "./navigation.style";
 import { useLocation } from 'react-router-dom';
 
