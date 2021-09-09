@@ -4,13 +4,15 @@ const nodemailer = require("nodemailer");
 const nodemailerSmtpTransport = require("nodemailer-smtp-transport");
 const { deleteOne } = require("../models/Booking");
 const POSSIBLE_TIMES = [18, 21];
+const MAXIMUM_PER_TABLE = 6;
+const dotenv = require("dotenv");
 
 const transport = nodemailer.createTransport(
   nodemailerSmtpTransport({
     service: "gmail",
     auth: {
-      user: "fusionrestaurant.info@gmail.com",
-      pass: "EveOchCorre123",
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
     },
   })
 );
@@ -30,12 +32,15 @@ const checkAvailability = async (req, res) => {
   const chosenDate = req.body.booking.date;
   const newPeople = req.body.booking.guests;
 
+  if (newPeople > 18) {
+    return res.status(404).json({ message: "För många personer" });
+  }
   if (!chosenDate | !newPeople) {
     return res.status(404).json({ message: "fyll i alla fälten" });
   }
 
   // CHECK HOW MANY TABLE IS NEEDED
-  let table = Math.ceil(newPeople / 6);
+  let table = Math.ceil(newPeople / MAXIMUM_PER_TABLE);
   let currentTime = 18;
   // CHECK IF TABLE IS AVAILABLE
   for (time in POSSIBLE_TIMES) {
@@ -50,7 +55,7 @@ const checkAvailability = async (req, res) => {
 
     let totalTables = 0;
     bookings.map(function (booking) {
-      let bookedTables = Math.ceil(booking.guests / 6);
+      let bookedTables = Math.ceil(booking.guests / MAXIMUM_PER_TABLE);
       totalTables = totalTables + bookedTables;
     });
 
