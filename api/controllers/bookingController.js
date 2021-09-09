@@ -26,6 +26,7 @@ const getBookings = async (req, res) => {
 };
 
 const checkAvailability = async (req, res) => {
+  const POSSIBLE_TIMES = [18, 21];
   const chosenDate = req.body.booking.date;
   const newPeople = req.body.booking.guests;
 
@@ -36,7 +37,7 @@ const checkAvailability = async (req, res) => {
     return res.status(404).json({ message: "fyll i alla fälten" });
   }
 
-  let isAvailableArray = await checkTables(newPeople, chosenDate)
+  let isAvailableArray = await checkTables(POSSIBLE_TIMES, newPeople, chosenDate)
 
   res.send(isAvailableArray);
 };

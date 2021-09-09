@@ -1,8 +1,8 @@
 const Booking = require("../models/Booking");
-const POSSIBLE_TIMES = [18, 21];
 const MAXIMUM_PER_TABLE = 6;
+const MAXIMUM_TABLES = 15;
 
-const checkTables = async (newPeople, chosenDate) => {
+const checkTables = async (POSSIBLE_TIMES, newPeople, chosenDate) => {
     let isAvailableArray = [];
       // CHECK HOW MANY TABLE IS NEEDED
   let table = Math.ceil(newPeople / MAXIMUM_PER_TABLE);
@@ -26,7 +26,7 @@ const checkTables = async (newPeople, chosenDate) => {
 
     // TABLE IS AVAILABLE OR NOT
     let isAvailable = false;
-    if (totalTables + table <= 15) {
+    if (totalTables + table <= MAXIMUM_TABLES) {
       isAvailable = true;
     } else {
       isAvailable = false;
