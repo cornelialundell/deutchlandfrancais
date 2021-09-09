@@ -15,7 +15,7 @@ const getBooking = async (req, res) => {
 
 const updateBooking = async (req, res) => {
 
-  const {date, guests, time, name, email, phones, confirmation} = req.body.booking
+  const {date, guests, time} = req.body.booking
   const id = req.body.booking._id
   //CHECK IF AVAILABLE
   let table = Math.ceil(guests / 6);
@@ -29,7 +29,7 @@ const updateBooking = async (req, res) => {
   bookings.map(function (booking) {
     let bookedTables = Math.ceil(booking.guests / 6);
     totalTables = (totalTables + bookedTables);
-  });
+  }); 
   
   // TABLE IS AVAILABLE OR NOT
   let isAvailable = false;

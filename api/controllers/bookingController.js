@@ -76,7 +76,16 @@ const cancelBooking = async (req, res) => {
   try {
     const confirmation = req.body.confirmationNumber;
     const booking = await Booking.find({ confirmation: confirmation });
+    const email = req.body.email
 
+    await transport.sendMail({
+      from: "fusionrestaurant.info@gmail.com",
+      to: email,
+      subject: "Bokningsbekräftelse",
+  
+      html: `<h1> Din bokning är avbokad! </h1>
+    <h3> Tråkigt! :()`,
+    });
     if (booking.length <= 0) {
       return res.status(404).json({ message: "Fel confirmationnumber" });
     }
@@ -85,6 +94,8 @@ const cancelBooking = async (req, res) => {
   } catch (error) {
     console.log("error");
   }
+
+  
 
   res.status(200).send();
 };
