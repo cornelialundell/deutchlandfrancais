@@ -63,6 +63,7 @@
     "@types/react-calendar": "^3.4.3",
     "@types/react-modal": "^3.12.1",
     "@types/react-router-dom": "^5.1.8",
-    "@types/react-select": "^4.0.17"
+    "@types/react-select": "^4.0.17",
+    "json-loader": "^0.5.7"
   }
 }
