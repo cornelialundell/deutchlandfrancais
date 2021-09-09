@@ -35,20 +35,24 @@ export const LogIn = (props: any) => {
   }
   return (
     <Form onSubmit={login}>
-      <P>{flashMessage}</P>
+      <P width="auto" clr="#e74c3c">{flashMessage}</P>
       <input
         type="text"
         placeholder="username"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>{
           setUsername(e.target.value)
+          setFlashMessage("")
+        }
         }
         value={username}
       />
       <input
         type="password"
         placeholder="password"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setPassword(e.target.value)
+          setFlashMessage("")
+        }
         }
         value={password}
       />

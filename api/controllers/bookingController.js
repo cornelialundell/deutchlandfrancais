@@ -37,7 +37,11 @@ const checkAvailability = async (req, res) => {
     return res.status(404).json({ message: "fyll i alla fälten" });
   }
 
-  let isAvailableArray = await checkTables(POSSIBLE_TIMES, newPeople, chosenDate)
+  let isAvailableArray = await checkTables(
+    POSSIBLE_TIMES,
+    newPeople,
+    chosenDate
+  );
 
   res.send(isAvailableArray);
 };
@@ -71,6 +75,12 @@ const addBooking = async (req, res) => {
 const cancelBooking = async (req, res) => {
   try {
     const confirmation = req.body.confirmationNumber;
+    const booking = await Booking.find({ confirmation: confirmation });
+
+    if (booking.length <= 0) {
+      return res.status(404).json({ message: "Fel confirmationnumber" });
+    }
+
     await Booking.deleteOne({ confirmation: confirmation });
   } catch (error) {
     console.log("error");
