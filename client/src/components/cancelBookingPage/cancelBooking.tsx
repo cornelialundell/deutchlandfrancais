@@ -13,9 +13,10 @@ const CancelForm = styled.form `
     `
 
 export const CancelBookingPage = () => {
-  const [confirmationNumber, setConfirmationNumber] = useState<number | undefined>();
+  const [confirmationNumber, setConfirmationNumber] = useState<number>();
   const [showComponent, SetShowComponent] = useState(true);
   const history = useHistory();
+  const [flashMessage, setFlashMessage] = useState("");
 
   const cancelBooking = (e: FormEvent) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ export const CancelBookingPage = () => {
           .then(() => SetShowComponent(false))
           .catch((err) => {
             console.log(err);
-            alert('Fyll i ditt konfirmationsnummer')
+            setFlashMessage('Ogiltigt konfirmationsnummer.')
             
           }); }
       } catch (err) {
@@ -56,13 +57,16 @@ export const CancelBookingPage = () => {
         {showComponent ? (
             <>
       <Heading>Avboka</Heading>
-      <P bg="none" width="auto">Vad tråkigt att vi inte får ha er runt vårt bord!</P>
+      <P width="auto" clr="#e74c3c">{flashMessage}</P>
+      <P width="auto">Vad tråkigt att vi inte får ha er runt vårt bord!</P>
       <CancelForm onSubmit={cancelBooking}>
         <input
           type="text"
           placeholder="konfirmationsnummer"
-          onChange={(e) => { setConfirmationNumber(parseInt(e.target.value) )}}
-          value={confirmationNumber}
+          onChange={(e) => { 
+            setConfirmationNumber(parseInt(e.target.value))
+            setFlashMessage('')
+          }}
         />
         <Button type="submit">Avboka</Button>
         
