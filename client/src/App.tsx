@@ -11,6 +11,7 @@ import { CancelBookingPage} from './components/cancelBookingPage/cancelBooking';
 import { EditBooking } from './components/adminPage/editBooking';
 import { ThankyouPage } from './components/thankyouPage/thankYou';
 import { FoodMenu } from './components/foodMenu/foodMenu';
+import { FourZeroFour } from './components/FourZeroFour/FourZeroFour';
 
 
 
@@ -50,6 +51,10 @@ function App() {
     <Route exact path="/thankyou">
     <Navigation />
       <ThankyouPage />
+    </Route>
+    <Route path='*'>
+    <Navigation />
+    <FourZeroFour />
     </Route>
 </Switch>
   </Router>
