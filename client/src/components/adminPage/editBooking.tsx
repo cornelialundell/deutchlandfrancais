@@ -6,6 +6,7 @@ import { Button } from "../globalStyles/Button";
 import { Wrapper } from "../globalStyles/Wrapper";
 import { Card, StyledDiv } from "./editBooking.style";
 import { useHistory } from "react-router-dom";
+import { P } from "../globalStyles/P-style";
 
 interface IParams {
   id: string;
@@ -18,6 +19,7 @@ export const EditBooking = () => {
   const [confirmationNumber, setConfirmationNumber] = useState<number | undefined>();
   const params: IParams = useParams();
   const id: number = parseInt(params.id);
+  const [flashMessage, setFlashMessage] = useState("");
 
   function getBooking() {
     axios
@@ -76,7 +78,7 @@ export const EditBooking = () => {
 
         axios
           .post("http://localhost:9000/cancelBooking", sendData)
-          .then(() => alert("Bokningen är nu avbokad"))
+          .then(() => setFlashMessage('Bokningen är nu avbokad'))
           .catch((err) => {
             console.log(err);
           });
@@ -91,6 +93,8 @@ export const EditBooking = () => {
     <>
       {booking ? (
         <Wrapper>
+          <Link to="/admin"><Button>Gå tillbaka</Button></Link>
+          <P>{flashMessage}</P>
           <form onSubmit={updateBooking}>
             <Card>
               <input
