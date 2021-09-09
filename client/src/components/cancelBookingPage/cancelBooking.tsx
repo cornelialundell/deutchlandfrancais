@@ -17,6 +17,7 @@ export const CancelBookingPage = () => {
   const [showComponent, SetShowComponent] = useState(true);
   const history = useHistory();
   const [flashMessage, setFlashMessage] = useState("");
+  const [email, setEmail] = useState("");
 
   const cancelBooking = (e: FormEvent) => {
     e.preventDefault();
@@ -31,6 +32,7 @@ export const CancelBookingPage = () => {
 
         const sendData = {
           confirmationNumber,
+          email
         };
 
         axios
@@ -65,6 +67,14 @@ export const CancelBookingPage = () => {
           placeholder="konfirmationsnummer"
           onChange={(e) => { 
             setConfirmationNumber(parseInt(e.target.value))
+            setFlashMessage('')
+          }}
+        />
+        <input
+          type="text"
+          placeholder="email"
+          onChange={(e) => { 
+            setEmail(e.target.value)
             setFlashMessage('')
           }}
         />
