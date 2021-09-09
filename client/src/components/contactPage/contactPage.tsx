@@ -1,6 +1,4 @@
-import { logDOM } from "@testing-library/react"
 import { useHistory } from "react-router-dom"
-import styled from "styled-components"
 import { Wrapper } from "../globalStyles/Wrapper"
 import { Button } from "../globalStyles/Button"
 import { P } from "../globalStyles/P-style"

@@ -1,5 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
-import { IBooking } from "./bookingPage";
+import {useState } from "react";
 
 interface IBookingContactProps {
   guestName: string;
