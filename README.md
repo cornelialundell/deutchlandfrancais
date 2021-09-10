@@ -70,7 +70,7 @@ Used packages:
 
 
 
-$fucion 
+
 ========
 
 $project will solve your problem of making a functional website for your restaurant, by providing solutions for basic functionality of handling bookings.
