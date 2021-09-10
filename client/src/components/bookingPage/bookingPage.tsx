@@ -121,12 +121,12 @@ export const BookingPage: React.FC = () => {
     <Wrapper>
       {showComponent ? (
         <StyledDiv>
-          <Day date={day} selectDate={selectDate} />
+          <Day data-testis="date" date={day} selectDate={selectDate} />
           <NumberOfPeople
             guests={numberOfPeople}
             selectGuests={selectGuests}
           />
-          <Button onClick={checkAvailability}>Sök lediga tider</Button>
+          <Button data-testid="button" onClick={checkAvailability}>Sök lediga tider</Button>
           <Time time={time} selectTime={selectTime} isAvailable={isAvailable} />
           {time ? (
             <Button onClick={() => setShowComponent(false)}>gå vidare </Button>

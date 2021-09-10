@@ -1,6 +1,6 @@
 import axios from "axios";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { AdminPage } from "./adminPage";
+import { AdminPage } from "../adminPage/adminPage";
 
 jest.mock("axios");
 const mockAxios = axios as jest.Mocked<typeof axios>;
