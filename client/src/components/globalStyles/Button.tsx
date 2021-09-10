@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { isPropertySignature } from 'typescript';
 
 interface IStyledButton {
     bgColor?: string;    

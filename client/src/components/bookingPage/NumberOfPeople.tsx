@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Select from "react-select";
 
 interface IBookingGuestsProps {
@@ -7,7 +6,6 @@ interface IBookingGuestsProps {
 }
 
 export const NumberOfPeople = (props: IBookingGuestsProps) => {
-  const [numberOfPeople, setGuests] = useState<number | null | undefined>();
 
   const options = [
     { value: 1, label: 1 },
@@ -39,7 +37,6 @@ export const NumberOfPeople = (props: IBookingGuestsProps) => {
         options={options}
         onChange={(event: { value: number; label: number } | null) => {
           if (event) {
-            setGuests(event.value);
 
             props.selectGuests(event.value);
           }

@@ -1,6 +1,5 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
-import { Booking } from "../bookingPage/booking";
 import styled from "styled-components";
 import { Wrapper } from "../globalStyles/Wrapper";
 import { Button } from "../globalStyles/Button";
@@ -14,13 +13,14 @@ const CancelForm = styled.form `
     `
 
 export const CancelBookingPage = () => {
-  const [confirmationNumber, setConfirmationNumber] = useState<number | undefined>();
+  const [confirmationNumber, setConfirmationNumber] = useState<number>();
   const [showComponent, SetShowComponent] = useState(true);
   const history = useHistory();
+  const [flashMessage, setFlashMessage] = useState("");
+  const [email, setEmail] = useState("");
 
   const cancelBooking = (e: FormEvent) => {
     e.preventDefault();
-    console.log(confirmationNumber)
 
     deleteData();
     async function deleteData() {
@@ -32,6 +32,7 @@ export const CancelBookingPage = () => {
 
         const sendData = {
           confirmationNumber,
+          email
         };
 
         axios
@@ -39,7 +40,7 @@ export const CancelBookingPage = () => {
           .then(() => SetShowComponent(false))
           .catch((err) => {
             console.log(err);
-            alert('Fyll i ditt konfirmationsnummer')
+            setFlashMessage('Ogiltigt konfirmationsnummer.')
             
           }); }
       } catch (err) {
@@ -58,13 +59,24 @@ export const CancelBookingPage = () => {
         {showComponent ? (
             <>
       <Heading>Avboka</Heading>
-      <P bg="none" width="auto">Vad tråkigt att vi inte får ha er runt vårt bord!</P>
+      <P width="auto" clr="#e74c3c">{flashMessage}</P>
+      <P width="auto">Vad tråkigt att vi inte får ha er runt vårt bord!</P>
       <CancelForm onSubmit={cancelBooking}>
         <input
           type="text"
           placeholder="konfirmationsnummer"
-          onChange={(e) => { setConfirmationNumber(parseInt(e.target.value) )}}
-          value={confirmationNumber}
+          onChange={(e) => { 
+            setConfirmationNumber(parseInt(e.target.value))
+            setFlashMessage('')
+          }}
+        />
+        <input
+          type="text"
+          placeholder="email"
+          onChange={(e) => { 
+            setEmail(e.target.value)
+            setFlashMessage('')
+          }}
         />
         <Button type="submit">Avboka</Button>
         

@@ -1,10 +1,8 @@
-import { useHistory } from "react-router-dom";
 import { Nav } from "./navigation.style";
 import { useLocation } from 'react-router-dom';
 
 export const Navigation = () => {
   const location = useLocation();
-console.log(location.pathname);
   
   return (
     <>
@@ -14,7 +12,7 @@ console.log(location.pathname);
         <a href="/">
           <li>Start</li>
         </a>
-        <a href="#"> 
+        <a href="/menu">
           <li>Meny</li>
         </a>
         <a href="/booking">
@@ -31,7 +29,7 @@ console.log(location.pathname);
             <a href="/">
               <li>Start</li>
             </a>
-            <a href="#"> 
+            <a href="/menu"> 
               <li>Meny</li>
             </a>
             <a href="/booking">

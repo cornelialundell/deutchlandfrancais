@@ -1,27 +1,22 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  EventHandler,
-  useState,
-} from "react";
-import Calendar, { CalendarProps, OnChangeDateCallback } from "react-calendar";
+import { useState } from "react";
+import Calendar from "react-calendar";
 import { Link } from "react-router-dom";
 import { Booking } from "../bookingPage/booking";
 import { Button } from "../globalStyles/Button";
 import { Card } from "./editBooking.style";
-import moment from 'moment'
+import moment from "moment";
 
 export const SeeBookings = (props: any) => {
-  const [day, setDay] = useState<Date | Date[]>();;
+  const [day, setDay] = useState<Date | Date[]>();
   const [bookings, setBookings] = useState<Booking[]>();
   const isEdit: Boolean = true;
 
   function getBookings(date: Date | Date[]) {
-    const newDate = date.toString()
-    const currentDate = moment(newDate).format("YYYY-MM-DD")
-    console.log(currentDate)
+    const newDate = date.toString();
+    const currentDate = moment(newDate).format("YYYY-MM-DD");
+    console.log(currentDate);
 
     axios
       .get("http://localhost:9000/getBookings", {
@@ -39,7 +34,6 @@ export const SeeBookings = (props: any) => {
 
   return (
     <div>
-
       {bookings ? (
         <ul>
           {bookings.map((booking, index) => {
@@ -63,10 +57,10 @@ export const SeeBookings = (props: any) => {
         <div>
           <p>Välj ett datum för att kolla bokningar.</p>
           <Calendar
-            onChange={(date: Date | Date[]):void  => {
-             getBookings(date)
+            onChange={(date: Date | Date[]): void => {
+              getBookings(date);
+              setDay(date)
             }}
-
             value={day}
             minDate={new Date()}
           />

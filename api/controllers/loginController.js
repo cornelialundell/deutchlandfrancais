@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Admin = require("../models/Admin");
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
