@@ -155,9 +155,12 @@ export const BookingPage: React.FC = () => {
       {showComponent ? (
         <StyledDiv>
           <Heading>Boka bord</Heading>
-          <Day date={day} selectDate={selectDate} />
-          <NumberOfPeople guests={numberOfPeople} selectGuests={selectGuests} />
-          <Button onClick={checkAvailability}>Sök lediga tider</Button>
+          <Day data-testis="date" date={day} selectDate={selectDate} />
+          <NumberOfPeople
+            guests={numberOfPeople}
+            selectGuests={selectGuests}
+          />
+          <Button data-testid="button" onClick={checkAvailability}>Sök lediga tider</Button>
           {checkClick ? (
             <>
               {isLoading ? (
@@ -174,7 +177,6 @@ export const BookingPage: React.FC = () => {
           ) : (
             <></>
           )}
-
           {time ? (
             <>
               <Button onClick={() => setShowComponent(false)}>

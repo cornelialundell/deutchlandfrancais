@@ -33,7 +33,7 @@ export const NumberOfPeople = (props: IBookingGuestsProps) => {
       <p>Hur stort är ert sällskap?</p>
       <p>För större bokningar ring på vår telefon.</p>
 
-      <Select
+      <Select data-testid="numofp"
         options={options}
         onChange={(event: { value: number; label: number } | null) => {
           if (event) {
